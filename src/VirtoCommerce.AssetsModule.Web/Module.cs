@@ -27,7 +27,8 @@ namespace VirtoCommerce.AssetsModule.Web
             serviceCollection.AddDbContext<AssetsDbContext>((provider, options) =>
             {
                 var configuration = provider.GetRequiredService<IConfiguration>();
-                options.UseSqlServer(configuration.GetConnectionString(ModuleInfo.Id) ?? configuration.GetConnectionString("VirtoCommerce"));
+                options.UseMySql(configuration.GetConnectionString(ModuleInfo.Id) ?? configuration.GetConnectionString("VirtoCommerce"),
+                    new MySqlServerVersion(new Version(5, 7)));
             });
             serviceCollection.AddTransient<IAssetsRepository, AssetsRepository>();
             serviceCollection.AddSingleton<Func<IAssetsRepository>>(provider => () => provider.CreateScope().ServiceProvider.GetRequiredService<IAssetsRepository>());
@@ -42,7 +43,7 @@ namespace VirtoCommerce.AssetsModule.Web
             {
                 using (var dbContext = serviceScope.ServiceProvider.GetRequiredService<AssetsDbContext>())
                 {
-                    dbContext.Database.MigrateIfNotApplied("20000000000000_UpdateAssetsV3");
+                    //dbContext.Database.MigrateIfNotApplied("20000000000000_UpdateAssetsV3");
                     dbContext.Database.EnsureCreated();
                     dbContext.Database.Migrate();
                 }
