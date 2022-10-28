@@ -11,7 +11,7 @@ using VirtoCommerce.AssetsModule.Data.Repositories;
 namespace VirtoCommerce.AssetsModule.Data.Migrations
 {
     [DbContext(typeof(AssetsDbContext))]
-    [Migration("20221019172947_Initial")]
+    [Migration("20221020110030_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,13 +56,13 @@ namespace VirtoCommerce.AssetsModule.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("varchar(1024)");
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("RelativeUrl")
                         .IsRequired()
-                        .HasMaxLength(2083)
-                        .HasColumnType("varchar(2083)");
+                        .HasMaxLength(512)
+                        .HasColumnType("varchar(512)");
 
                     b.Property<long>("Size")
                         .HasColumnType("bigint");
